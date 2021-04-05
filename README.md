@@ -5,18 +5,18 @@
 |Column              |Type                 |Options                  |
 |--------------------|---------------------|-------------------------|
 | name               | string              | null: false             |
-| email              | string              | null: false             |
-| password           | string              | null: false             |
-| first name         | string              | null: false             |
-| last name          | string              | null: false             |
-| furigana fn        | string              | null: false             |
-| furigana ln        | string              | null: false             |
-| birthday           | integer             | null: false             |
+| email              | string              | unique                  |
+| encrypted_password | string              | null: false             |
+| first_name         | string              | null: false             |
+| last_name          | string              | null: false             |
+| furigana_fn        | string              | null: false             |
+| furigana_ln        | string              | null: false             |
+| birthday           | date                | null: false             |
 
 ### Association
 
 * has_many :items
-* has_many :purchase record
+* has_many :purchase_record
 
 ## items table
 
@@ -24,18 +24,18 @@
 |--------------------|---------------------|-------------------------|
 | name               | string              | null: false             |
 | explanation        | text                | null: false             |
-| category           | integer             | null: false             |
-| status             | integer             | null: false             |
-| shipping charges   | integer             | null: false             |
-| shipping area      | integer             | null: false             |
-| delivery time      | integer             | null: false             |
+| category_id        | integer             | null: false             |
+| status_id          | integer             | null: false             |
+| shipping_charge_id | integer             | null: false             |
+| shipping_area_id   | integer             | null: false             |
+| delivery_time_id   | integer             | null: false             |
 | price              | integer             | null: false             |
 | user               | references          | foreign_key: true       |
 
 ### Association
 
 * belongs_to :user
-* has_one :purchase record
+* has_one :purchase_record
 
 ## purchase record table
 
@@ -48,20 +48,20 @@
 
 * belongs_to :user
 * belongs_to :item
-* has_one:street address
+* has_one:street_address
 
 ## street address
 
 |Column              |Type                 |Options                  |
 |--------------------|---------------------|-------------------------|
-| postal code        | string              | null: false             |
-| prefectures        | integer             | null: false             |
+| postal_code        | string              | null: false             |
+| shipping_area_id   | integer             | null: false             |
 | municipality       | string              | null: false             |
 | address            | string              | null: false             |
-| building name      | string              | null: true              |
-| phone number       | string              | null: false             |
+| building_name      | string              |                         |
+| phone_number       | string              | null: false             |
 | purchase           | references          | foreign_key: true       |
 
 ### Association
 
-* belongs_to :purchase record
+* belongs_to :purchase_record
