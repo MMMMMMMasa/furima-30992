@@ -1,24 +1,67 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users table
 
-Things you may want to cover:
+|Column              |Type                 |Options                  |
+|--------------------|---------------------|-------------------------|
+| name               | string              | null: false             |
+| email              | string              | null: false             |
+| password           | string              | null: false             |
+| first name         | string              | null: false             |
+| last name          | string              | null: false             |
+| furigana fn        | string              | null: false             |
+| furigana ln        | string              | null: false             |
+| birthday           | integer             | null: false             |
 
-* Ruby version
+### Association
 
-* System dependencies
+* has_many :items
+* has_many :purchase record
 
-* Configuration
+## items table
 
-* Database creation
+|Column              |Type                 |Options                  |
+|--------------------|---------------------|-------------------------|
+| name               | string              | null: false             |
+| explanation        | text                | null: false             |
+| category           | integer             | null: false             |
+| status             | integer             | null: false             |
+| shipping charges   | integer             | null: false             |
+| shipping area      | integer             | null: false             |
+| delivery time      | integer             | null: false             |
+| price              | integer             | null: false             |
+| user               | references          | foreign_key: true       |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+* belongs_to :user
+* has_one :purchase record
 
-* Services (job queues, cache servers, search engines, etc.)
+## purchase record table
 
-* Deployment instructions
+|Column              |Type                 |Options                  |
+|--------------------|---------------------|-------------------------|
+| user               | references          | foreign_key: true       |
+| item               | references          | foreign_key: true       |
 
-* ...
+### Association
+
+* belongs_to :user
+* belongs_to :item
+* has_one:street address
+
+## street address
+
+|Column              |Type                 |Options                  |
+|--------------------|---------------------|-------------------------|
+| postal code        | string              | null: false             |
+| prefectures        | integer             | null: false             |
+| municipality       | string              | null: false             |
+| address            | string              | null: false             |
+| building name      | string              | null: true              |
+| phone number       | string              | null: false             |
+| purchase           | references          | foreign_key: true       |
+
+### Association
+
+* belongs_to :purchase record
