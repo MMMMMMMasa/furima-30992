@@ -4,7 +4,6 @@ RSpec.describe Item, type: :model do
   #pending "add some examples to (or delete) #{__FILE__}"#
 
   before do
-    # binding.pry
     @item = FactoryBot.build(:item)
   end
 
