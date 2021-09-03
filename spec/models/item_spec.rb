@@ -30,27 +30,27 @@ RSpec.describe Item, type: :model do
        expect(@item.errors.full_messages).to include("Explanation can't be blank")
      end
      it 'category_idが未選択の場合出品できない' do
-       @item.category_id = '1'
+       @item.category_id = 1
        @item.valid?
        expect(@item.errors.full_messages).to include("Category can't be blank")
      end
      it 'status_idが未選択の場合出品できない' do
-       @item.status_id = '1'
+       @item.status_id = 1
        @item.valid?
        expect(@item.errors.full_messages).to include("Status can't be blank")
      end
      it 'shipping_charge_idが未選択の場合出品できない' do
-       @item.shipping_charge_id = '1'
+       @item.shipping_charge_id = 1
        @item.valid?
        expect(@item.errors.full_messages).to include("Shipping charge can't be blank")
      end
      it 'shipping_area_idが未選択の場合出品できない' do
-       @item.shipping_area_id = '1'
+       @item.shipping_area_id = 1
        @item.valid?
        expect(@item.errors.full_messages).to include("Shipping area can't be blank")
      end
      it 'delivery_time_idが未選択の場合出品できない' do
-       @item.delivery_time_id = '1'
+       @item.delivery_time_id = 1
        @item.valid?
        expect(@item.errors.full_messages).to include("Delivery time can't be blank")
      end
@@ -60,13 +60,13 @@ RSpec.describe Item, type: :model do
        expect(@item.errors.full_messages).to include("Price 半角数字で入力してください")
      end
      it '価格が300円未満では出品できない' do
-       @item.price = '200'
+       @item.price = 200
        @item.valid?
        expect(@item.errors.full_messages).to include("Price ¥300~¥9,999,999の間で入力してください")
      end
 
      it '価格が9_999_999円を超えると出品できない' do
-       @item.price = '99999999'
+       @item.price = 99999999
        @item.valid?
        expect(@item.errors.full_messages).to include("Price ¥300~¥9,999,999の間で入力してください")
      end
