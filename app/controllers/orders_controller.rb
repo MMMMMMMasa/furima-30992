@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:index, :create]
+  before_action :authenticate_user!, only: [:index]
   before_action :prevent_url, only: [:index, :create]
   def index
     @order = Order.new
