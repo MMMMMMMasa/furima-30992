@@ -71,13 +71,19 @@ RSpec.describe Order, type: :model do
         it 'phone_numberは11桁より多いと購入できない' do
           @order.phone_number = '090123456789'
           @order.valid?
-          expect(@order.errors.full_messages).to include("Phone number 10,11桁で入力してください")
+          expect(@order.errors.full_messages).to include("Phone number 10,11桁半角数字を入力してください")
         end
 
         it 'phone_numberは9桁以下だとと購入できない' do
           @order.phone_number = '090123456'
           @order.valid?
-          expect(@order.errors.full_messages).to include("Phone number 10,11桁で入力してください")
+          expect(@order.errors.full_messages).to include("Phone number 10,11桁半角数字を入力してください")
+        end
+
+        it '電話番号に半角数字以外が含まれている場合は購入できない' do
+          @order.phone_number = '0901234569７'
+          @order.valid?
+          expect(@order.errors.full_messages).to include("Phone number 10,11桁半角数字を入力してください")
         end
 
         it "tokenが空では購入できないこと" do

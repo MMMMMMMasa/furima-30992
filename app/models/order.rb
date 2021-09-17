@@ -13,9 +13,9 @@ class Order
   end
 
   validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: 'ハイフン,半角数字を入力してください' }
-  validates :phone_number, format: { with: /\A\d{10,11}\z/, message: '10,11桁で入力してください'}
+  validates :phone_number, format: { with: /\A\d{10,11}\z/, message: '10,11桁半角数字を入力してください'}
 
-  validates :shipping_area_id , numericality: { other_than: 1 , message: "shipping area can't be blank"}
+  validates :shipping_area_id , numericality: { other_than: 1 , message: "can't be blank"}
 
   def save
     purchase = PurchaseRecord.create(user_id: user_id, item_id: item_id)
