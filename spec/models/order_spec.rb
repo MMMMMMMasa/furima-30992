@@ -13,6 +13,10 @@ RSpec.describe Order, type: :model do
       it '商品購入ができる時' do
         expect(@order).to be_valid
       end
+      it '建物名が空でも購入できる' do
+        @order.building_name = ''
+        expect(@order).to be_valid
+      end
     end
     context '商品購入ができない時' do
       it 'user_idが空では購入できない' do
@@ -55,16 +59,28 @@ RSpec.describe Order, type: :model do
         it 'postal_codeはハイフンがないと購入できない' do
           @order.postal_code = '1234567'
           @order.valid?
-          expect(@order.errors.full_messages).to include("Postal code ハイフンを入力してください")
+          expect(@order.errors.full_messages).to include("Postal code ハイフン,半角数字を入力してください")
+        end
+
+        it 'postal_codeは半角数字以外では購入できない' do
+          @order.postal_code = '123-２３４５'
+          @order.valid?
+          expect(@order.errors.full_messages).to include("Postal code ハイフン,半角数字を入力してください")
         end
 
         it 'phone_numberは11桁より多いと購入できない' do
           @order.phone_number = '090123456789'
           @order.valid?
-          expect(@order.errors.full_messages).to include("Phone number 11桁以内で入力してください")
+          expect(@order.errors.full_messages).to include("Phone number 10,11桁で入力してください")
         end
 
-        it "tokenが空では登録できないこと" do
+        it 'phone_numberは9桁以下だとと購入できない' do
+          @order.phone_number = '090123456'
+          @order.valid?
+          expect(@order.errors.full_messages).to include("Phone number 10,11桁で入力してください")
+        end
+
+        it "tokenが空では購入できないこと" do
           @order.token = nil
           @order.valid?
           expect(@order.errors.full_messages).to include("Token can't be blank")
